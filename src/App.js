@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+// Import required components and modules from Firebase and Firebase Config
+import { firebaseConfig } from "./config/Config.js"
+import { getApp, initializeApp } from "firebase/app"
+import { useState, useEffect } from "react"
+import { getApps } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc
+} from "firebase/firestore";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// Import required compenets from Bootstrap and React-Boostrap
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Col from 'react-bootstrap/Col';
+import './App.css'
 
-export default App;
+
+
+export default App
