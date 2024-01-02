@@ -65,7 +65,8 @@ export function MyForm(props) {
     <div style={{ backgroundColor: '#84BC9C' }}>
       <Form onSubmit={submitHandler}>
         <Form.Group>
-          <Form.Label style={{ fontSize: '40px' }}>Ray's Unbased Takes'</Form.Label>
+          <Form.Label style={{ fontSize: '40px' }}>Ray's Unbased Takes</Form.Label>
+          <p>Submit any unbased takes Ray has about various food's, drinks or other ungodly, unbased opinions</p>
           <Col sm={2}></Col>
           <Col sm={8}>
             <Form.Label style={{ fontSize: '30px' }}>Enter submitter name:</Form.Label>
