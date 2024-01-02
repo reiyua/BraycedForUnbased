@@ -94,6 +94,15 @@ export function MyForm(props) {
               onChange={(e) => setContext(e.target.value)}
             />
             
+            <Form.Label style={{ fontSize: '30px' }}>Optionally upload evidence:</Form.Label>
+            <p>The storage bucket I get is limited to 1GB in total with the free tier Google provides but can upgrade if it get's used alot by us.</p>
+            <Form.Control
+              type="file"
+              name="context"
+              placeholder="Enter context here"
+              value={context}
+              onChange={(e) => setContext(e.target.value)}
+            />
 
             <Button type="submit">Submit</Button>
           </Col>
