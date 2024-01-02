@@ -17,6 +17,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Col from 'react-bootstrap/Col';
 import './App.css'
 
+// Initialize Firebase
+
 if (!getApps().length) {
   initializeApp(firebaseConfig);
 }
@@ -27,42 +29,27 @@ export function MyForm(props) {
   const [submitter, setSubmitter] = useState('');
   const [date, setDate] = useState('');
   const [context, setContext] = useState('');
+  const [unbasedTakes, setUnbasedTakes] = useState([]);
 
   // Fetch incidents from Firestore when the component mounts
+  if (!getApps().length) {
+    initializeApp(firebaseConfig);
+  }
+
   useEffect(() => {
-    const incidentsRef = collection(db, "incidents");
-    getDocs(incidentsRef).then((snapshot) => {
-      const incidentsArray = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setIncidents(incidentsArray);
+    const unbasedRef = collection(db, "unbasedtakes");
+    getDocs(unbasedRef).then((snapshot) => {
+      const unbasedtakesArray = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setUnbasedTakes(unbasedtakesArray);
     });
   }, []);
 
-  // Ensure Firebase is initialized before using it
-  if (!getApp().length) {
-    initializeApp(firebaseConfig);
-
-  }
-
   const db = getFirestore(getApp());
 
-
-  // Create a function to handle the checkbox changes and update the state accordingly.
-  const handleCheckboxChange = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setSelectedOptions([...selectedOptions, value]);
-    } else {
-      setSelectedOptions(selectedOptions.filter((option) => option !== value));
-    }
-  };
-
-
   // Create a function to handle the form submission and add data to Firebase.
-  // Once user presses submit, a popup will appearstating the data was sent.
+  // Once user presses submit, a popup will appear stating the data was sent.
   // When user acknowledges popup and closes it, the page will reload,
   // clearing the form and adding the new data to the database.
-
-
   const submitHandler = async (event) => {
     event.preventDefault()
     const unbasedData = { submitter, date, context} 
@@ -73,7 +60,7 @@ export function MyForm(props) {
     window.location.reload();
   }
 
-  // Create form for user to imput data
+  // Create form for user to input data
   return (
     <div style={{ backgroundColor: '#84BC9C' }}>
       <Form onSubmit={submitHandler}>
@@ -89,7 +76,7 @@ export function MyForm(props) {
               value={submitter}
               onChange={(e) => setSubmitter(e.target.value)}
             />
-            <Form.Label style={{ fontSize: '30px' }}>Enter the date the shennanigans occurred (dd-mm-yyyy):</Form.Label>
+            <Form.Label style={{ fontSize: '30px' }}>What date did Ray admit this cursed, unbased opinion? (dd-mm-yyyy):</Form.Label>
             <Form.Control
               name="date"
               type="text"
@@ -97,7 +84,7 @@ export function MyForm(props) {
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
-            <Form.Label style={{ fontSize: '30px' }}>Enter context for this unbased take of Ray:</Form.Label>
+            <Form.Label style={{ fontSize: '30px' }}>Enter context and item for this unbased take of Ray:</Form.Label>
             <Form.Control
               type="text"
               name="context"
@@ -110,28 +97,8 @@ export function MyForm(props) {
             <Button type="submit">Submit</Button>
           </Col>
         </Form.Group>
-
-        <Form.Group>
-          <h2>Existing incidents in the database:</h2>
-          {unbasedtakes.map((unbasee, index) => (
-            <div key={unbasedtakes.id}>
-              <h3><u>Incident ID:</u></h3>
-              <p>{incident.id}</p>
-              <h3>What date did this shennanigans occur?:</h3>
-              <p>{incident.date}</p>
-              <h3>Who submitted this:</h3>
-              <p>{incident.submitter}</p>
-              <h3>What caused Ray's moment?:</h3>
-              <p>{incident.context}</p>
-              <h3>What word's did Ray use this time?:</h3>
-              <p>{incident.selectedOptions.join(', ')}</p>
-              {index !== incidents.length - 1 && <hr style={{ fontWeight: 'bold' }} />}
-            </div>
-          ))}
-        </Form.Group>
       </Form>
     </div>
-    // Create a form group to display the existing entries in the database.        
   );
 }
 export default MyForm;
