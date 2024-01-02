@@ -16,6 +16,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Col from 'react-bootstrap/Col';
+
+// Import CSS
 import './App.css'
 
 // Initialize Firebase
