@@ -2,6 +2,8 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Import required components from React
 import { useState, useEffect } from "react";
 
 // Import required components from Firebase Firestore
