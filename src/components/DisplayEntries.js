@@ -23,9 +23,9 @@ export function DisplayEntries() {
     }, []);
    
     return (
-      <div className="cardContainer">
+      <div className="cardContainer" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {entries.map((entry) => (
-          <Card key={entry.id} style={{ width: '18rem' }}>
+  <Card key={entry.id} style={{ margin: '1rem', maxWidth: 'calc(50% - 2rem)' }}>
             <Card.Body>
               <Card.Title>{entry.submitter}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">{entry.date}</Card.Subtitle>

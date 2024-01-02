@@ -88,56 +88,60 @@ export function MyForm(props) {
 
   // Create form for user to input data
   return (
-    <div style={{ backgroundColor: '#84BC9C' }}>
-      <Form onSubmit={submitHandler}>
-        <Form.Group>
-          <Form.Label style={{ fontSize: '40px' }}>Ray's Unbased Takes</Form.Label>
-          <p>Submit any unbased takes Ray has about various food's, drinks or other ungodly, unbased opinions</p>
-          <Col sm={2}></Col>
-          <Col sm={8}>
-            <Form.Label style={{ fontSize: '30px' }}>Enter submitter name:</Form.Label>
-            <Form.Control
-              name="submitter"
-              type="text"
-              placeholder="Name"
-              value={submitter}
-              onChange={(e) => setSubmitter(e.target.value)}
-            />
-            <Form.Label style={{ fontSize: '30px' }}>What date did Ray admit this cursed, unbased opinion? (dd-mm-yyyy):</Form.Label>
-            <Form.Control
-              name="date"
-              type="text"
-              placeholder="Date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-            <Form.Label style={{ fontSize: '30px' }}>Enter context and item for this unbased take of Ray:</Form.Label>
-            <Form.Control
-              type="text"
-              name="context"
-              placeholder="Enter context here"
-              value={context}
-              onChange={(e) => setContext(e.target.value)}
-            />
-            
-            <Form.Label style={{ fontSize: '30px' }}>Optionally upload evidence:</Form.Label>
-            <p>The storage bucket I get is limited to 1GB in total with the free tier Google provides but can upgrade if it get's used alot by us.</p>
-            <Form.Control
-              type="file"
-              name="fileupload"
-              placeholder="Upload file here"
-              onChange={(e) => {
-                e.stopPropagation();
-                setFileupload(e.target.files[0]);
+    <div style={{ backgroundColor: '#84BC9C', display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <div style={{ flex: 1 }}>
+        <Form onSubmit={submitHandler}>
+          <Form.Group>
+            <Form.Label style={{ fontSize: '40px' }}>Ray's Unbased Takes</Form.Label>
+            <p>Submit any unbased takes Ray has about various food's, drinks or other ungodly, unbased opinions</p>
+            <Col sm={2}></Col>
+            <Col sm={8}>
+              <Form.Label style={{ fontSize: '30px' }}>Enter submitter name:</Form.Label>
+              <Form.Control
+                name="submitter"
+                type="text"
+                placeholder="Name"
+                value={submitter}
+                onChange={(e) => setSubmitter(e.target.value)}
+              />
+              <Form.Label style={{ fontSize: '30px' }}>What date did Ray admit this cursed, unbased opinion? (dd-mm-yyyy):</Form.Label>
+              <Form.Control
+                name="date"
+                type="text"
+                placeholder="Date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+              <Form.Label style={{ fontSize: '30px' }}>Enter context and item for this unbased take of Ray:</Form.Label>
+              <Form.Control
+                type="text"
+                name="context"
+                placeholder="Enter context here"
+                value={context}
+                onChange={(e) => setContext(e.target.value)}
+              />
+              
+              <Form.Label style={{ fontSize: '30px' }}>Optionally upload evidence:</Form.Label>
+              <p>The storage bucket I get is limited to 1GB in total with the free tier Google provides but can upgrade if it get's used alot by us.</p>
+              <Form.Control
+                type="file"
+                name="fileupload"
+                placeholder="Upload file here"
+                onChange={(e) => {
+                  e.stopPropagation();
+                  setFileupload(e.target.files[0]);
                 }}
-                />
+              />
 
-            <Button type="submit">Submit</Button>
-          </Col>
-        </Form.Group>
-      </Form>
-      <h2>Existing Unbased Takes</h2>
-      <DisplayEntries />
+              <Button type="submit">Submit</Button>
+            </Col>
+          </Form.Group>
+        </Form>
+        </div>
+        <div>
+        <h2>Existing Unbased Takes</h2>
+        <DisplayEntries />
+        </div>
     </div>
   );
 }
