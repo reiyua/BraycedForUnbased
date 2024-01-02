@@ -140,6 +140,7 @@ export function MyForm(props) {
         </div>
         <div>
         <h2>Existing Unbased Takes</h2>
+        <p>View existing entries in the card's below.</p>
         <DisplayEntries />
         </div>
     </div>
