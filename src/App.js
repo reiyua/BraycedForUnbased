@@ -9,6 +9,7 @@ import {
   getDocs,
   addDoc
 } from "firebase/firestore";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 // Import required compenets from Bootstrap and React-Boostrap
 import Form from 'react-bootstrap/Form';
@@ -29,7 +30,10 @@ export function MyForm(props) {
   const [submitter, setSubmitter] = useState('');
   const [date, setDate] = useState('');
   const [context, setContext] = useState('');
+  const [fileupload, setFileupload] = useState('');
   const [unbasedTakes, setUnbasedTakes] = useState([]);
+  const storage = getStorage();
+  const storageRef = ref(storage, `media/${fileupload.name}`);
 
   // Fetch incidents from Firestore when the component mounts
   if (!getApps().length) {
@@ -50,9 +54,26 @@ export function MyForm(props) {
   // Once user presses submit, a popup will appear stating the data was sent.
   // When user acknowledges popup and closes it, the page will reload,
   // clearing the form and adding the new data to the database.
+
   const submitHandler = async (event) => {
     event.preventDefault()
-    const unbasedData = { submitter, date, context} 
+    let unbasedData = { submitter, date, context };
+    
+    // Handle file upload
+    if (fileupload) {
+      const uploadTask = uploadBytesResumable(storageRef, fileupload);
+
+
+     // Wait for the upload to finish
+     await uploadTask.then(async () => {
+       // Get the download URL after the upload is complete
+       const fileUrl = await getDownloadURL(uploadTask.snapshot.ref);
+
+       // Add the file URL to the form submission
+       unbasedData.fileUrl = fileUrl;
+     });
+   }
+ 
     const col = collection(db, `unbasedtakes`)
     const ref = await addDoc(col, unbasedData)
     console.log(ref)
@@ -98,11 +119,13 @@ export function MyForm(props) {
             <p>The storage bucket I get is limited to 1GB in total with the free tier Google provides but can upgrade if it get's used alot by us.</p>
             <Form.Control
               type="file"
-              name="context"
-              placeholder="Enter context here"
-              value={context}
-              onChange={(e) => setContext(e.target.value)}
-            />
+              name="fileupload"
+              placeholder="Upload file here"
+              onChange={(e) => {
+                e.stopPropagation();
+                setFileupload(e.target.files[0]);
+                }}
+                />
 
             <Button type="submit">Submit</Button>
           </Col>
