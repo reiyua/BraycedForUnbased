@@ -17,6 +17,9 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Col from 'react-bootstrap/Col';
 
+// Import DisplayEntries component which displays existing reviews
+import DisplayEntries from "./components/DisplayEntries.js";
+
 // Import CSS
 import './App.css'
 
@@ -86,6 +89,7 @@ export function MyForm(props) {
   // Create form for user to input data
   return (
     <div style={{ backgroundColor: '#84BC9C' }}>
+      <DisplayEntries />
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label style={{ fontSize: '40px' }}>Ray's Unbased Takes</Form.Label>
