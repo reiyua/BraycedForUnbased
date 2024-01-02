@@ -59,7 +59,7 @@ export function MyForm(props) {
     event.preventDefault()
     let unbasedData = { submitter, date, context };
     
-    // Handle file upload
+    // Handle file uploading to Firebase Storage
     if (fileupload) {
       const uploadTask = uploadBytesResumable(storageRef, fileupload);
 
@@ -69,7 +69,7 @@ export function MyForm(props) {
        // Get the download URL after the upload is complete
        const fileUrl = await getDownloadURL(uploadTask.snapshot.ref);
 
-       // Add the file URL to the form submission
+       // Add the file URL to the form submission in Firestore along with other variables under the collection "unbasedtakes" with variable named "fileURL"
        unbasedData.fileUrl = fileUrl;
      });
    }
