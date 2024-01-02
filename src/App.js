@@ -136,6 +136,7 @@ export function MyForm(props) {
           </Col>
         </Form.Group>
       </Form>
+      <h2>Existing Unbased Takes</h2>
       <DisplayEntries />
     </div>
   );
