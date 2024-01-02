@@ -89,7 +89,6 @@ export function MyForm(props) {
   // Create form for user to input data
   return (
     <div style={{ backgroundColor: '#84BC9C' }}>
-      <DisplayEntries />
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label style={{ fontSize: '40px' }}>Ray's Unbased Takes</Form.Label>
@@ -137,6 +136,7 @@ export function MyForm(props) {
           </Col>
         </Form.Group>
       </Form>
+      <DisplayEntries />
     </div>
   );
 }
