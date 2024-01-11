@@ -12,6 +12,10 @@ The website uses Google Firebase's Hosting for the website, Firebase to store en
 
 TO-DO:
 
-- Add progress bar to show progress of file upload.
+- Add progress bar to show progress of file upload. (Semi-working, need to sync with actual file timing)
+
+ISSUES:
+
+File sotrage link no longer being added to entries.
 
 https://braycedforunbased.web.app
