@@ -16,6 +16,6 @@ TO-DO:
 
 ISSUES:
 
-File sotrage link no longer being added to entries.
+File storage works but the link is no longer being added to entries.
 
 https://braycedforunbased.web.app
