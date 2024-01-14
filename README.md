@@ -10,12 +10,4 @@ This web app was created using the npm package "create-react-app" and usded elem
 
 The website uses Google Firebase's Hosting for the website, Firebase to store entries and Storage to store any images or other media attached to said entry.
 
-TO-DO:
-
-- Add progress bar to show progress of file upload. (Semi-working, need to sync with actual file timing)
-
-ISSUES:
-
-File storage works but the link is no longer being added to entries.
-
 https://braycedforunbased.web.app
