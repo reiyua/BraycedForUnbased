@@ -16,7 +16,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Col from 'react-bootstrap/Col';
-import ProgressBar from 'react-bootstrap/ProgressBar';
 
 // Import DisplayEntries component which displays existing reviews
 import DisplayEntries from "./components/DisplayEntries.js";
@@ -40,7 +39,6 @@ export function MyForm(props) {
   const [unbasedTakes, setUnbasedTakes] = useState([]);
   const storage = getStorage();
   const storageRef = ref(storage, `media/${fileupload.name}`);
-  const [progress, setProgress] = useState(0);
 
   // Fetch incidents from Firestore when the component mounts
   if (!getApps().length) {
@@ -69,37 +67,21 @@ export function MyForm(props) {
     // Handle file uploading to Firebase Storage
     if (fileupload) {
       const uploadTask = uploadBytesResumable(storageRef, fileupload);
-   
-      // Track the progress of the upload task
-      uploadTask.on('state_changed', 
-        (snapshot) => {
-          // Calculate the progress percentage
-          const progress = (snapshot.bytesTransferred / fileupload.size) * 100;
-          console.log('Upload is ' + progress + '% done');
 
-          // Update the progress state
-          setProgress(progress);
-        }, 
-        (error) => {
-          // Handle errors
-          console.log(error);
-        }, 
-        () => {
-          // Wait for the upload to finish
-          uploadTask.then(async () => {
-            // Get the download URL after the upload is complete
-            const fileUrl = await getDownloadURL(uploadTask.snapshot.ref);
-   
-            // Add the file URL to the form submission in Firestore along with other variables under the collection "unbasedtakes" with variable named "fileURL"
-            unbasedData.fileUrl = fileUrl;
-          });
-        }
-      );
-    }
-   
+
+     // Wait for the upload to finish
+     await uploadTask.then(async () => {
+       // Get the download URL after the upload is complete
+       const fileUrl = await getDownloadURL(uploadTask.snapshot.ref);
+
+       // Add the file URL to the form submission in Firestore along with other variables under the collection "unbasedtakes" with variable named "fileURL"
+       unbasedData.fileUrl = fileUrl;
+     });
+   }
+ 
     const col = collection(db, `unbasedtakes`)
     const ref = await addDoc(col, unbasedData)
-    console.log(ref);
+    console.log(ref)
     alert("Form submitted successfully!");
     window.location.reload();
   }
@@ -150,19 +132,17 @@ export function MyForm(props) {
                   setFileupload(e.target.files[0]);
                 }}
               />
-              {/* Display the progress bar */}
-              <ProgressBar now={progress} label={`${progress}%`} />
- 
+
               <Button type="submit">Submit</Button>
             </Col>
           </Form.Group>
         </Form>
-      </div>
-      <div>
+        </div>
+        <div>
         <h2>Existing Unbased Takes</h2>
         <p>View existing entries in the card's below.</p>
         <DisplayEntries />
-      </div>
+        </div>
     </div>
   );
 }
