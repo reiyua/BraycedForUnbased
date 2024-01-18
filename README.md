@@ -11,4 +11,3 @@ This web app was created using the npm package "create-react-app" and usded elem
 The website uses Google Firebase's Hosting for the website, Firebase to store entries and Storage to store any images or other media attached to said entry.
 
 https://braycedforunbased.web.app
-https://braycedforunbased.netlify.app/
